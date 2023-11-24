@@ -28,10 +28,13 @@
 #define ADJ_GREEN	13
 
 
+enum PEDESTRIAN_STATE{PED_ON,PED_OFF};
+
 extern int T_RED;
 extern int T_AMBER;
 extern int T_GREEN;
 extern int status;
+extern enum PEDESTRIAN_STATE curr_ped_status;
 
 void led_config();
 void toggle_red();
