@@ -229,7 +229,7 @@ void pedestrian_buzzer_config(){
 				break;
 			case RED_GREEN:
 				if(curr_ped_status==PED_ON){
-					while(T_GREEN + T_AMBER > 5){
+					while(T_GREEN > 5){
 						setTimer6(500);
 						if(timer6_flag == 1){
 							if (buzzer_flag == 0){
@@ -242,21 +242,8 @@ void pedestrian_buzzer_config(){
 							}
 						}
 					}
-					while(T_GREEN + T_AMBER <= 5 && T_GREEN + T_AMBER >= 3){
+					while(T_GREEN <= 5 && T_GREEN > 0){
 						setTimer6(300);
-						if(timer6_flag == 1){
-							if (buzzer_flag == 0){
-								on_pedestrian_buzzer();
-								buzzer_flag = 1;
-							}
-							if (buzzer_flag == 1){
-								off_pedestrian_buzzer();
-								buzzer_flag = 0;
-							}
-						}
-					}
-					while(T_GREEN + T_AMBER < 3 && T_GREEN + T_AMBER >= 0){
-						setTimer6(100);
 						if(timer6_flag == 1){
 							if (buzzer_flag == 0){
 								on_pedestrian_buzzer();
@@ -274,33 +261,7 @@ void pedestrian_buzzer_config(){
 				break;
 			case RED_AMBER:
 				if(curr_ped_status==PED_ON){
-					while(T_GREEN + T_AMBER > 5){
-						setTimer6(500);
-						if(timer6_flag == 1){
-							if (buzzer_flag == 0){
-								on_pedestrian_buzzer();
-								buzzer_flag = 1;
-							}
-							if (buzzer_flag == 1){
-								off_pedestrian_buzzer();
-								buzzer_flag = 0;
-							}
-						}
-					}
-					while(T_GREEN + T_AMBER <= 5 && T_GREEN + T_AMBER >= 3){
-						setTimer6(300);
-						if(timer6_flag == 1){
-							if (buzzer_flag == 0){
-								on_pedestrian_buzzer();
-								buzzer_flag = 1;
-							}
-							if (buzzer_flag == 1){
-								off_pedestrian_buzzer();
-								buzzer_flag = 0;
-							}
-						}
-					}
-					while(T_GREEN + T_AMBER < 3 && T_GREEN + T_AMBER >= 0){
+					while(T_AMBER > 0){
 						setTimer6(100);
 						if(timer6_flag == 1){
 							if (buzzer_flag == 0){
