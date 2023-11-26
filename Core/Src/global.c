@@ -7,30 +7,41 @@
 
 #include "main.h"
 #include "global.h"
+#include "timer.h"
 
-int T_RED = 5;
-int T_AMBER = 2;
-int T_GREEN = 3;
+int T_RED = 10;
+int T_AMBER = 3;
+int T_GREEN = 7;
 
 int status = INIT;
 int toggle_flag = 0;
+int buzzer_flag = 0;
 
 enum PEDESTRIAN_STATE curr_ped_status=PED_OFF;
 
+void pedestrian_led_config();
+void pedestrian_buzzer_config();
+
 void off_all_leds_road_1();
 void off_all_leds_road_2();
+
 void on_red_road_1();
 void on_red_road_2();
+
 void on_amber_road_1();
 void on_amber_road_2();
 void on_green_road_1();
 void on_green_road_2();
+
 void off_pedestrian();
 void on_red_pedestrian();
 void on_green_pedestrian();
 
-void led_config() {
+void off_pedestrian_buzzer();
+void on_pedestrian_buzzer();
 
+void led_config() {
+	pedestrian_buzzer_config();
 	pedestrian_led_config();
 	switch (status) {
 		case MODE1:
@@ -211,3 +222,137 @@ void on_green_pedestrian(){
 	HAL_GPIO_WritePin (D7_PedLED_GPIO_Port, D7_PedLED_Pin, 1);
 }
 
+void pedestrian_buzzer_config(){
+	switch (status) {
+			case MODE1:
+				off_pedestrian_buzzer();
+				break;
+			case RED_GREEN:
+				if(curr_ped_status==PED_ON){
+					while(T_GREEN + T_AMBER > 5){
+						setTimer6(500);
+						if(timer6_flag == 1){
+							if (buzzer_flag == 0){
+								on_pedestrian_buzzer();
+								buzzer_flag = 1;
+							}
+							if (buzzer_flag == 1){
+								off_pedestrian_buzzer();
+								buzzer_flag = 0;
+							}
+						}
+					}
+					while(T_GREEN + T_AMBER <= 5 && T_GREEN + T_AMBER >= 3){
+						setTimer6(300);
+						if(timer6_flag == 1){
+							if (buzzer_flag == 0){
+								on_pedestrian_buzzer();
+								buzzer_flag = 1;
+							}
+							if (buzzer_flag == 1){
+								off_pedestrian_buzzer();
+								buzzer_flag = 0;
+							}
+						}
+					}
+					while(T_GREEN + T_AMBER < 3 && T_GREEN + T_AMBER >= 0){
+						setTimer6(100);
+						if(timer6_flag == 1){
+							if (buzzer_flag == 0){
+								on_pedestrian_buzzer();
+								buzzer_flag = 1;
+							}
+							if (buzzer_flag == 1){
+								off_pedestrian_buzzer();
+								buzzer_flag = 0;
+							}
+						}
+					}
+					break;
+				}
+				off_pedestrian_buzzer();
+				break;
+			case RED_AMBER:
+				if(curr_ped_status==PED_ON){
+					while(T_GREEN + T_AMBER > 5){
+						setTimer6(500);
+						if(timer6_flag == 1){
+							if (buzzer_flag == 0){
+								on_pedestrian_buzzer();
+								buzzer_flag = 1;
+							}
+							if (buzzer_flag == 1){
+								off_pedestrian_buzzer();
+								buzzer_flag = 0;
+							}
+						}
+					}
+					while(T_GREEN + T_AMBER <= 5 && T_GREEN + T_AMBER >= 3){
+						setTimer6(300);
+						if(timer6_flag == 1){
+							if (buzzer_flag == 0){
+								on_pedestrian_buzzer();
+								buzzer_flag = 1;
+							}
+							if (buzzer_flag == 1){
+								off_pedestrian_buzzer();
+								buzzer_flag = 0;
+							}
+						}
+					}
+					while(T_GREEN + T_AMBER < 3 && T_GREEN + T_AMBER >= 0){
+						setTimer6(100);
+						if(timer6_flag == 1){
+							if (buzzer_flag == 0){
+								on_pedestrian_buzzer();
+								buzzer_flag = 1;
+							}
+							if (buzzer_flag == 1){
+								off_pedestrian_buzzer();
+								buzzer_flag = 0;
+							}
+						}
+					}
+					break;
+				}
+				off_pedestrian_buzzer();
+				break;
+			case GREEN_RED:
+				if(curr_ped_status==PED_ON){
+					off_pedestrian_buzzer();
+					break;
+				}
+				off_pedestrian_buzzer();
+				break;
+			case AMBER_RED:
+				if(curr_ped_status==PED_ON){
+					off_pedestrian_buzzer();
+					break;
+				}
+				off_pedestrian_buzzer();
+				break;
+			case MODE2:
+				curr_ped_status=PED_OFF;
+				off_pedestrian_buzzer();
+				break;
+			case MODE3:
+				curr_ped_status=PED_OFF;
+				off_pedestrian_buzzer();
+				break;
+			case MODE4:
+				curr_ped_status=PED_OFF;
+				off_pedestrian_buzzer();
+				break;
+			default:
+				break;
+		}
+}
+
+void off_pedestrian_buzzer(){
+	HAL_GPIO_WritePin (D12_PedBuzzer_GPIO_Port, D12_PedBuzzer_Pin, 0);
+	HAL_GPIO_WritePin (D13_PedBuzzer_GPIO_Port, D13_PedBuzzer_Pin, 0);
+}
+void on_pedestrian_buzzer(){
+	HAL_GPIO_WritePin (D12_PedBuzzer_GPIO_Port, D12_PedBuzzer_Pin, 1);
+	HAL_GPIO_WritePin (D13_PedBuzzer_GPIO_Port, D13_PedBuzzer_Pin, 1);
+}
