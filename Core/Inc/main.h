@@ -47,8 +47,10 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+void buzzer(int vol);
 /* USER CODE END EM */
+
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
@@ -64,10 +66,6 @@ void Error_Handler(void);
 #define A1_Button1_GPIO_Port GPIOA
 #define A2_Button2_Pin GPIO_PIN_4
 #define A2_Button2_GPIO_Port GPIOA
-#define D13_PedBuzzer_Pin GPIO_PIN_5
-#define D13_PedBuzzer_GPIO_Port GPIOA
-#define D12_PedBuzzer_Pin GPIO_PIN_6
-#define D12_PedBuzzer_GPIO_Port GPIOA
 #define A3_Button3_Pin GPIO_PIN_0
 #define A3_Button3_GPIO_Port GPIOB
 #define D6_PedLED_Pin GPIO_PIN_10
@@ -82,6 +80,7 @@ void Error_Handler(void);
 #define D5_LED2_GPIO_Port GPIOB
 #define D4_LED2_Pin GPIO_PIN_5
 #define D4_LED2_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -91,5 +90,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
