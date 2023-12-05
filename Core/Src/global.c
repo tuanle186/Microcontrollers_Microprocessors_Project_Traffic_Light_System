@@ -19,6 +19,9 @@ int buzzer_flag = 0;
 
 enum PEDESTRIAN_STATE curr_ped_status=PED_OFF;
 
+int buzzer_period=500;
+int volume = 5;
+
 void pedestrian_led_config();
 void pedestrian_buzzer_config();
 
@@ -37,8 +40,7 @@ void off_pedestrian();
 void on_red_pedestrian();
 void on_green_pedestrian();
 
-void off_pedestrian_buzzer();
-void on_pedestrian_buzzer();
+void set_buzzer();
 
 void led_config() {
 	pedestrian_buzzer_config();
@@ -225,95 +227,64 @@ void on_green_pedestrian(){
 void pedestrian_buzzer_config(){
 	switch (status) {
 			case MODE1:
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			case RED_GREEN:
 				if(curr_ped_status==PED_ON){
-					while(T_GREEN > 5){
-						setTimer6(500);
-						if(timer6_flag == 1){
-							if (buzzer_flag == 0){
-								on_pedestrian_buzzer();
-								buzzer_flag = 1;
-							}
-							if (buzzer_flag == 1){
-								off_pedestrian_buzzer();
-								buzzer_flag = 0;
-							}
-						}
-					}
-					while(T_GREEN <= 5 && T_GREEN > 0){
-						setTimer6(300);
-						if(timer6_flag == 1){
-							if (buzzer_flag == 0){
-								on_pedestrian_buzzer();
-								buzzer_flag = 1;
-							}
-							if (buzzer_flag == 1){
-								off_pedestrian_buzzer();
-								buzzer_flag = 0;
-							}
-						}
-					}
+					set_buzzer();
 					break;
 				}
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			case RED_AMBER:
 				if(curr_ped_status==PED_ON){
-					while(T_AMBER > 0){
-						setTimer6(100);
-						if(timer6_flag == 1){
-							if (buzzer_flag == 0){
-								on_pedestrian_buzzer();
-								buzzer_flag = 1;
-							}
-							if (buzzer_flag == 1){
-								off_pedestrian_buzzer();
-								buzzer_flag = 0;
-							}
-						}
-					}
+					set_buzzer();
 					break;
 				}
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			case GREEN_RED:
 				if(curr_ped_status==PED_ON){
-					off_pedestrian_buzzer();
+					buzzer(0);
 					break;
 				}
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			case AMBER_RED:
 				if(curr_ped_status==PED_ON){
-					off_pedestrian_buzzer();
+					buzzer(0);
 					break;
 				}
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			case MODE2:
 				curr_ped_status=PED_OFF;
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			case MODE3:
 				curr_ped_status=PED_OFF;
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			case MODE4:
 				curr_ped_status=PED_OFF;
-				off_pedestrian_buzzer();
+				buzzer(0);
 				break;
 			default:
 				break;
 		}
 }
 
-void off_pedestrian_buzzer(){
-	HAL_GPIO_WritePin (D12_PedBuzzer_GPIO_Port, D12_PedBuzzer_Pin, 0);
-	HAL_GPIO_WritePin (D13_PedBuzzer_GPIO_Port, D13_PedBuzzer_Pin, 0);
-}
-void on_pedestrian_buzzer(){
-	HAL_GPIO_WritePin (D12_PedBuzzer_GPIO_Port, D12_PedBuzzer_Pin, 1);
-	HAL_GPIO_WritePin (D13_PedBuzzer_GPIO_Port, D13_PedBuzzer_Pin, 1);
+
+void set_buzzer(){
+//	setTimer6(500);
+	if (timer6_flag == 1){
+		setTimer6(buzzer_period);
+		if (buzzer_flag == 0){
+			buzzer(volume);
+			buzzer_flag = 1;
+		}else {
+			buzzer(0);
+			buzzer_flag = 0;
+		}
+	}
 }

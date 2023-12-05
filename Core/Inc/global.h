@@ -35,6 +35,8 @@ extern int T_AMBER;
 extern int T_GREEN;
 extern int status;
 extern enum PEDESTRIAN_STATE curr_ped_status;
+extern int volume;
+extern int buzzer_period;
 
 void led_config();
 void toggle_red();

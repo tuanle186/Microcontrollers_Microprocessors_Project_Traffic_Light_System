@@ -26,6 +26,8 @@ void fsm_automatic() {
 //			update7SEG_buffer_auto(counter_1, counter_2);
 			setTimer0(T_GREEN*1000);
 //			setTimer4(1000);
+			buzzer_period=500;
+			volume = 20;
 			status = RED_GREEN;
 			break;
 		case RED_GREEN:
@@ -40,6 +42,8 @@ void fsm_automatic() {
 			if (timer0_flag == 1) {
 				setTimer0(T_AMBER*1000);
 				status = RED_AMBER;
+				buzzer_period = 75;
+				volume = 100;
 			}
 			break;
 		case RED_AMBER:
@@ -87,6 +91,8 @@ void fsm_automatic() {
 //			}
 			if (timer0_flag == 1) {
 				setTimer0(T_GREEN*1000);
+				buzzer_period=500;
+				volume = 20;
 				status = RED_GREEN;
 			}
 			break;
