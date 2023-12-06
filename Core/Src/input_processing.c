@@ -10,7 +10,7 @@
 #include "input_processing.h"
 #include "input_reading.h"
 #include "timer.h"
-//#include "seven_seg.h"
+#include "uart.h"
 
 enum ButtonState{BUTTON_RELEASED, BUTTON_PRESSED, BUTTON_PRESSED_MORE_THAN_1_SECOND};
 
@@ -54,7 +54,7 @@ void fsm_button_processing() {
 		case BUTTON_RELEASED:
 			if (is_button_pressed(1)) {
 				button_1_state = BUTTON_PRESSED;
-				if (status == RED_GREEN) 	status = MODE2;
+				if (status == RED_GREEN)	status = MODE2;
 				if (status == AUTO_RED) 	status = MODE3;
 				if (status == AUTO_AMBER) 	status = MODE4;
 				if (status == AUTO_GREEN) 	status = MODE1;
@@ -85,19 +85,19 @@ void fsm_button_processing() {
 					status = ADJ_RED;
 					T_RED++;
 					if (T_RED >= 99) T_RED = 1;
-//					update7SEG_buffer_manual(2, T_RED);
+					disp_t_red_uart();
 				}
 				if (status == AUTO_AMBER || status == ADJ_AMBER) {
 					status = ADJ_AMBER;
 					T_AMBER++;
 					if (T_AMBER >= 5) T_AMBER = 1;
-//					update7SEG_buffer_manual(3, T_AMBER);
+					disp_t_amber_uart();
 				}
 				if (status == AUTO_GREEN || status == ADJ_GREEN) {
 					status = ADJ_GREEN;
 					T_GREEN++;
 					if (T_GREEN >= 99) T_GREEN = 1;
-//					update7SEG_buffer_manual(4, T_GREEN);
+					disp_t_green_uart();
 				}
 			}
 			break;
@@ -141,6 +141,8 @@ void fsm_button_processing() {
 					}
 					T_RED = T_AMBER + T_GREEN;
 				}
+				HAL_UART_Transmit(&huart2, "!SAVED#\n\r", 11, 50);
+				HAL_UART_Transmit(&huart2, "\n\r", 4, 50);
 			}
 			break;
 		case BUTTON_PRESSED:

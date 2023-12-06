@@ -10,14 +10,15 @@
 #include "global.h"
 #include "fsm_manual.h"
 #include "timer.h"
-//#include "seven_seg.h"
+#include "uart.h"
 
 void fsm_red_manual() {
 	switch(status) {
 		case MODE2:
 			led_config();
 			setTimer1(500);
-//			update7SEG_buffer_manual(2, T_RED);
+			HAL_UART_Transmit(&huart2, "!_____MODE2_____#\n\r", 20, 50);
+			disp_t_red_uart();
 			status = AUTO_RED;
 			break;
 		case AUTO_RED:
@@ -42,7 +43,8 @@ void fsm_amber_manual() {
 		case MODE3:
 			led_config();
 			setTimer1(500);
-//			update7SEG_buffer_manual(3, T_AMBER);
+			HAL_UART_Transmit(&huart2, "!_____MODE3_____#\n\r", 20, 50);
+			disp_t_amber_uart();
 			status = AUTO_AMBER;
 			break;
 		case AUTO_AMBER:
@@ -67,7 +69,8 @@ void fsm_green_manual() {
 		case MODE4:
 			led_config();
 			setTimer1(500);
-//			update7SEG_buffer_manual(4, T_GREEN);
+			HAL_UART_Transmit(&huart2, "!_____MODE4_____#\n\r", 20, 50);
+			disp_t_green_uart();
 			status = AUTO_GREEN;
 			break;
 		case AUTO_GREEN:
@@ -86,3 +89,4 @@ void fsm_green_manual() {
 			break;
 	}
 }
+

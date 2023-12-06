@@ -9,7 +9,7 @@
 #include "main.h"
 #include "timer.h"
 
-int TIMER_CYCLE = 10;
+int TIMER_CYCLE = 5;
 int timer0_counter = 0, timer1_counter = 0, timer2_counter = 0, timer3_counter = 0, timer4_counter, timer5_counter = 0, timer6_counter = 0;
 int timer0_flag = 0, timer1_flag = 0, timer2_flag = 0, timer3_flag = 0, timer4_flag = 0, timer5_flag = 0, timer6_flag = 0;
 
