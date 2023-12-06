@@ -82,7 +82,7 @@ void Error_Handler(void);
 #define D4_LED2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+extern UART_HandleTypeDef huart2;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
