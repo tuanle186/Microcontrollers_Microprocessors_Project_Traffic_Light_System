@@ -29,6 +29,7 @@
 #include "input_processing.h"
 #include "input_reading.h"
 #include "uart.h"
+#include "scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -107,18 +108,22 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim2);
   HAL_TIM_Base_Start_IT(&htim3);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
   setTimer6(500);
+  SCH_Add_Task(timer_run, 0, 1);
+  SCH_Add_Task(button_reading, 0, 1);
+  SCH_Add_Task(fsm_automatic, 0, 1);
+  SCH_Add_Task(fsm_red_manual, 0, 1);
+  SCH_Add_Task(fsm_amber_manual, 0, 1);
+  SCH_Add_Task(fsm_green_manual, 0, 1);
+  SCH_Add_Task(fsm_button_processing, 0, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  fsm_automatic();
-	  fsm_red_manual();
-	  fsm_amber_manual();
-	  fsm_green_manual();
-	  fsm_button_processing();
+	  SCH_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -354,8 +359,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim2) {
-	timer_run();
-	button_reading();
+	SCH_Update();
 }
 /* USER CODE END 4 */
 
