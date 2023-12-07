@@ -20,17 +20,17 @@ enum ButtonState button_2_state = BUTTON_PRESSED;
 enum ButtonState button_3_state = BUTTON_PRESSED;
 
 void fsm_button_processing() {
-	if(timer5_flag==1){
+/*	if(timer5_flag==1){
 		timer5_flag=0;
 		curr_ped_status=PED_OFF;
-	}
+	}*/
 	switch (button_0_state) {
 			case BUTTON_RELEASED:
 				if (is_button_pressed(0)) {
 					button_0_state = BUTTON_PRESSED;
 					if(curr_ped_status==PED_OFF&&(status==MODE1||status==RED_GREEN||status==RED_AMBER||status==GREEN_RED||status==AMBER_RED)){
 						curr_ped_status=PED_ON;
-						setTimer5(10*1000);
+						//setTimer5(10*1000);
 					}
 				}
 				break;
