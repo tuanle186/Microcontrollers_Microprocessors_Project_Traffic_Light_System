@@ -1,3 +1,3 @@
-fsm_manual.c:15:6:fsm_red_manual	8	static
-fsm_manual.c:41:6:fsm_amber_manual	8	static
-fsm_manual.c:67:6:fsm_green_manual	8	static
+../Core/Src/fsm_manual.c:15:6:fsm_red_manual	8	static
+../Core/Src/fsm_manual.c:41:6:fsm_amber_manual	8	static
+../Core/Src/fsm_manual.c:67:6:fsm_green_manual	8	static
