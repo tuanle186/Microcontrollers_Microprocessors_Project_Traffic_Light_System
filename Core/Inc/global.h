@@ -33,6 +33,7 @@ enum PEDESTRIAN_STATE{PED_ON,PED_OFF};
 extern int T_RED;
 extern int T_AMBER;
 extern int T_GREEN;
+extern int T_CHECK;
 extern int status;
 extern enum PEDESTRIAN_STATE curr_ped_status;
 extern int volume;

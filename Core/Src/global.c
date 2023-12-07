@@ -12,6 +12,7 @@
 int T_RED = 10;
 int T_AMBER = 3;
 int T_GREEN = 7;
+int T_CHECK = 0;
 
 int status = INIT;
 int toggle_flag = 0;
