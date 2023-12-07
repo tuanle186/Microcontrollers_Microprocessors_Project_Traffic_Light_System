@@ -60,6 +60,7 @@ void fsm_automatic() {
 					t_road_1 = T_GREEN;
 					t_road_2 = T_RED;
 					status = GREEN_RED; // Change state
+					curr_ped_status=PED_OFF;
 				}
 				disp_time_uart(t_road_1, t_road_2);
 				setTimer4(1000);
