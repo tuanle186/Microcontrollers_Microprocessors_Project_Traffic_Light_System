@@ -1,4 +1,4 @@
-uart.c:17:6:disp_t_red_uart	24	static
-uart.c:23:6:disp_t_amber_uart	24	static
-uart.c:29:6:disp_t_green_uart	24	static
-uart.c:35:6:disp_time_uart	32	static
+../Core/Src/uart.c:17:6:disp_t_red_uart	24	static
+../Core/Src/uart.c:23:6:disp_t_amber_uart	24	static
+../Core/Src/uart.c:29:6:disp_t_green_uart	24	static
+../Core/Src/uart.c:35:6:disp_time_uart	32	static
